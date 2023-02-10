@@ -38,10 +38,10 @@ public class DeviceController {
             Device temporaryDevice = devices.get(numberDevice);
             if (!temporaryDevice.deviceStatusOnOrOff()) {
                 System.out.println(" Выбран прибор для включения:");
-                System.out.println(temporaryDevice);
+                System.out.println(numberDevice + " " + temporaryDevice);
                 temporaryDevice.turnOnTheDeviceNetwork();
-                System.out.println(" Состояние прибора on/off: ");
-                System.out.println(temporaryDevice);
+                System.out.println(" Состояние прибора on: ");
+                System.out.println(numberDevice + " " + temporaryDevice);
                 devices.replace(numberDevice, temporaryDevice);
             }
         }
@@ -51,7 +51,7 @@ public class DeviceController {
      * Отключение всех  приборов из сети
      */
     public void turnOffAllDeviceNetwork() {
-        for (int i = 1; i < devices.size(); i++) {
+        for (int i = 1; i <= devices.size(); i++) {
             Device offDevice = devices.get(i);
             offDevice.turnOffTheAllDeviceNetwork();
             System.out.println(" Состояние прибора on/off: ");
@@ -59,45 +59,43 @@ public class DeviceController {
             devices.replace(i, offDevice);
         }
         powerOnDevices = 0;
-        System.out.println(device);
+        System.err.println("Все приборы отключены");
     }
 
     /**
      * Потребляемая мощность в квартире
      */
     public void powerConsumptionNow() {
-        for (int i = 1; i < devices.size(); i++) {
+        for (int i = 1; i <= devices.size(); i++) {
             Device powerDevice = devices.get(i);
             boolean onOrOffDevice = powerDevice.deviceStatusOnOrOff();
+
             if (onOrOffDevice) {
                 powerOnDevices = powerOnDevices + powerDevice.powerConsumptionNow();
             }
-            else {
-                System.out.println("Нет включенных электроприборов");
-                break;
-            }
         }
         System.out.println("Потребляемая мощность в квартире = " + powerOnDevices + " Вт");
+        powerOnDevices = 0;
     }
 
     /**
      * Посмотреть включенные приборы в квартире
      */
     public void includedAppliancesInTheFlat() {
-        System.out.println("Включенные приборы в квартире ");
-        for (int i = 1; i < devices.size(); i++) {
+        System.out.println("Включенные электроприборы в сеть");
+        for (int i = 1; i <= devices.size(); i++) {
             Device powerDevice = devices.get(i);
             boolean onOrOffDevice = powerDevice.deviceStatusOnOrOff();
             if (onOrOffDevice) {
-                System.out.println(powerDevice);
+                System.out.println(i + " " + powerDevice);
+            }
+            if (!onOrOffDevice) {
+                System.out.println("Прибор № " + i + " не включен");
             }
         }
-
     }
 
-
 }
-
 
 
 

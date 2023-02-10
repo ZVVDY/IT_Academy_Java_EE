@@ -12,8 +12,9 @@ public class Controller {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private Integer number;
     private Device device = new DeviceImp();
-    private  DeviceController deviceController= new DeviceController();
+    private DeviceController deviceController = new DeviceController();
     private Map<Integer, Device> allDevice = deviceController.initializationAllDevices();
+
     public void menuHomeAppliances() {
         System.out.println("Добро пожаловать в программу Домашние Электроприборы");
         System.out.println("Войти (Enter)" + "\n" +
@@ -39,29 +40,32 @@ public class Controller {
                     deviceController.includedAppliancesInTheFlat();
                     break;
                 case 4:
-                    //device.turnOnTheDeviceNetwork();
+                    device.selectingTheDeviceToBeConnectedToTheNetwork(allDevice);
                     break;
                 case 5:
                     deviceController.powerConsumptionNow();
                     break;
                 case 6:
-                    //device.turnOnTheDeviceNetwork();
+                    device.sortingByDevicePower(allDevice);
+                    device.sortingDevice();
                     break;
                 case 7:
-                    //device.turnOnTheDeviceNetwork();
+                    device.searchDeviceByParameters(allDevice);
                     break;
                 case 8:
                     deviceController.turnOffAllDeviceNetwork();
                     break;
                 case 0:
                     System.out.println("Вы вышли из программы  (You are out of the program)");
+                    System.exit(0);
                     break;
                 default:
-                    System.out.println("Введите номер меню 0,1,2 (Enter menu number 0,1,2)");
+                    System.out.println("Введите номер меню 0,1,2,3,4,5,6,7,8, (Enter menu number 0,1,2,3,4,5,6,7,8,)");
                     menuHomeAppliances();
             }
         } catch (Exception e) {
-            System.err.println("Введите цифры 0,1,2, а не символы(Enter the number 0,1,2, not symbols)");
+            System.err.println("Введите цифры 0,1,2,3,4,5,6,7,8, а не символы" +
+                    "(Enter the number 0,1,2,3,4,5,6,7,8 not symbols)");
         } finally {
             menuHomeAppliances();
         }
